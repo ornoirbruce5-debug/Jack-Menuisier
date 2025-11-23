@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Menuiserie Moderne — Ububaji w’umwuga, futuristic & glowing</title>
+  <title>Menuiserie Moderne — Ububaji bw’umwuga, futuristic & glowing</title>
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" herf="favicon.png"sizes="32×32"
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#14161a" />
@@ -36,17 +38,17 @@
   <div id="onboarding" class="onboarding hidden">
     <div class="onboarding-step" data-step="1">
       <h3>Murakaza neza kuri Menuiserie Moderne</h3>
-      <p>Reba imirimo yacu, igiciro estimated, kandi utegure rendez-vous vuba.</p>
+      <p>Raba imirimo yacu, igiciro estimated, kandi utegure rendez-vous vuba.</p>
       <button class="btn primary" data-next>Ibikurikira</button>
     </div>
     <div class="onboarding-step hidden" data-step="2">
       <h3>Swipe carousel</h3>
-      <p>Shobora gusunika (swipe) ibikoresho ku telefoni, cyangwa ukande ku mapfundo kuri desktop.</p>
+      <p>Ushobora gusunika (swipe) ibikoresho (photos) ku telefoni, cyangwa ufyonde amabuto.</p>
       <button class="btn primary" data-next>Ibikurikira</button>
     </div>
     <div class="onboarding-step hidden" data-step="3">
       <h3>PWA & Offline</h3>
-      <p>Shyira kuri telefoni (Install) kugira ngo urebe catalogue n’ama-devis offline.</p>
+      <p>Shyira kuri telefoni (Install) kugira ngo urabe catalogue n’ama-devis offline.</p>
       <button class="btn success" data-done>Ntangire Uruzinduko</button>
     </div>
   </div>
@@ -77,10 +79,10 @@
     <div class="hero-inner">
       <h1 class="logo-glow">Menuiserie Moderne</h1>
       <p class="subtitle">
-        Duhuza ubuhanga, ituze, n’ubwiza mu kubaka ibikoresho by’imbaho ku giciro gito—byuzuye umucyo n’ukwizera.
+        Duhuza ubuhanga, ituze, n’ubwiza mu kubaka ibikoresho by’imbaho ku giciro gito—byuzuye umucyo n’ukwizerwa.
       </p>
       <div class="cta-wrap">
-        <a href="#stock" class="btn cta" id="ctaBtn">Reba Catalogue</a>
+        <a href="#stock" class="btn cta" id="ctaBtn">Raba Catalogue</a>
       </div>
     </div>
   </header>
@@ -94,12 +96,12 @@
 
   <!-- Stock carousel -->
   <section id="stock" class="stock">
-    <h2>Ibikoresho by’imbaho (Swipe/Click)</h2>
+    <h2>Ibikoresho vy’imbaho (Swipe/Click)</h2>
     <div class="carousel" id="carousel">
       <div class="card">
-        <img src="assets/stock/table.jpg" alt="Meza" />
-        <h3>Meza</h3>
-        <p>Meza y’umwuga, pastel glow, yihanganira imikoreshereze.</p>
+        <img src="assets/stock/table.jpg" alt="Imeza" />
+        <h3>Imeza</h3>
+        <p>Imeza y’umwuga, pastel glow, ikomeye kandi nziza cane.</p>
       </div>
       <div class="card">
         <img src="assets/stock/chair.jpg" alt="Intebe" />
@@ -114,12 +116,12 @@
       <div class="card">
         <img src="assets/stock/door.jpg" alt="Inzugi" />
         <h3>Inzugi</h3>
-        <p>Inzugi zikomeye, zifite finish ya kinyamwuga.</p>
+        <p>Inzugi zikomeye, zifise finish ya kinyamwuga.</p>
       </div>
       <div class="card">
         <img src="assets/stock/placard.jpg" alt="Placards" />
         <h3>Placards</h3>
-        <p>Placards zifite imyanya myinshi, glowing accents.</p>
+        <p>Placards zifise imyanya myinshi, glowing accents.</p>
       </div>
     </div>
     <div class="carousel-controls">
@@ -153,7 +155,7 @@
   <!-- Joke spinner (Kirundi) -->
   <section class="jokes">
     <h2>Blagues z’umutima (Kirundi)</h2>
-    <p class="joke" id="jokeText">Kanda “Haha” kugira ubone urunana rushasha.</p>
+    <p class="joke" id="jokeText">Fyonda “Haha” kugira ubone Blagues.</p>
     <div class="joke-actions">
       <button class="btn" id="spinJokeBtn">Haha 🤭</button>
       <button class="btn ghost" id="clearJokesBtn">Siba local jokes</button>
@@ -183,7 +185,7 @@
   <!-- WhatsApp autoresponder + QR -->
   <section id="contact" class="contact">
     <h2>Twandikire vuba</h2>
-    <p>WhatsApp autoresponder: kanda hepfo cyangwa ukoreshe QR.</p>
+    <p>WhatsApp autoresponder: Fyonda hepfo cyangwa ukoreshe QR.</p>
     <div class="contact-grid">
       <a class="btn whatsapp" id="waLink" target="_blank" rel="noopener">WhatsApp Devis</a>
       <div class="qr-wrap animated-border">
@@ -235,7 +237,7 @@
         <img src="assets/gallery/table-after.jpg" class="ba after" alt="Meza nyuma" />
         <input type="range" class="ba-slider" min="0" max="100" value="50" />
       </div>
-      <h3>Meza</h3>
+      <h3>Imeza</h3>
     </div>
   </section>
 
@@ -253,7 +255,7 @@
         <input type="time" id="time" required />
       </label>
       <label>Icyo wipfuza
-        <input type="text" id="need" placeholder="Meza, inzugi, ..." required />
+        <input type="text" id="need" placeholder="Imeza, inzugi, ..." required />
       </label>
       <div class="actions">
         <button type="submit" class="btn primary">Ohereza kuri WhatsApp</button>
@@ -264,7 +266,7 @@
 
   <!-- Analytics dashboard (canvas charts) -->
   <section class="analytics">
-    <h2>Analytics y’uruhinyuka</h2>
+    <h2>Analytics </h2>
     <div class="charts">
       <canvas id="visitsChart" width="300" height="180" aria-label="Visits chart"></canvas>
       <canvas id="quotesChart" width="300" height="180" aria-label="Quotes chart"></canvas>
@@ -321,7 +323,7 @@
   <!-- Offline toolkit (PWA install) -->
   <section class="offline">
     <h2>Offline toolkit</h2>
-    <p>Shyira iyi LP kuri telefoni yawe (Install) kugira ngo urebe catalogue n’ama-devis n’iyo internet itaboneka.</p>
+    <p>Shira iyi LP kuri telefoni yawe (Install) kugira ngo urebe catalogue n’ama-devis n’iyo internet itaboneka.</p>
     <button id="installBtn" class="btn success">Install kuri telefoni</button>
   </section>
 
@@ -332,7 +334,7 @@
     <div class="ar-wrap">
       <video id="camera" autoplay playsinline></video>
       <div class="ar-controls">
-        <button class="btn chip" data-furn="table">Meza</button>
+        <button class="btn chip" data-furn="table">Imeza</button>
         <button class="btn chip" data-furn="door">Inzugi</button>
         <button class="btn chip" data-furn="chair">Intebe</button>
         <button class="btn ghost" id="clearAR">Siba</button>
@@ -346,8 +348,8 @@
     <div class="footer-grid">
       <div>
         <h3>Contacts</h3>
-        <p>Tél/WhatsApp: +257 XXXXXXXX</p>
-        <p>Email: contact@menuiserie.mod</p>
+        <p>Tél/WhatsApp: +257 71633859</p>
+        <p>Email: ornoirbruce5@gmail.com</p>
       </div>
       <div>
         <h3>Social</h3>
