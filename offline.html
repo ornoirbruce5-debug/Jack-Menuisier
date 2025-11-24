@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="rw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Menuiserie Moderne — Offline</title>
+  <meta name="theme-color" content="#f7c8e0" />
+  <meta name="description" content="Menuiserie Moderne — Turimo offline, ariko ushobora kureba imishinga yacu na contact." />
+
+  <!-- No external CSS—everything inline to guarantee offline rendering -->
+  <style>
+    :root{
+      --bg-1: #ffe6f2;
+      --bg-2: #e8f7ff;
+      --bg-3: #f0fff4;
+      --text: #2b2b2b;
+      --muted: #60656b;
+      --accent: #9b5de5;
+      --accent-2: #00c2ff;
+      --card: #ffffff;
+      --success: #0f9d58;
+      --warning: #f4b400;
+      --danger: #db4437;
+      --shadow: 0 10px 30px rgba(0,0,0,0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 10px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, var(--bg-1), transparent 70%),
+        radial-gradient(900px 500px at 90% 10%, var(--bg-2), transparent 60%),
+        radial-gradient(800px 500px at 30% 90%, var(--bg-3), transparent 60%),
+        linear-gradient(180deg, #fff 0%, #f9fbff 100%);
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{color:var(--accent-2)}
+
+    /* Header */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 18px; position:sticky; top:0; backdrop-filter:saturate(1.4) blur(8px);
+      background:rgba(255,255,255,0.75); border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;box-shadow:var(--shadow);background:#fff}
+    .brand-title{font-weight:700;letter-spacing:.2px}
+    .status-pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px; background:#fff; box-shadow:var(--shadow); color:var(--danger);
+      font-weight:600;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--danger);box-shadow:0 0 0 4px rgba(219,68,55,0.12)}
+
+    /* Container */
+    .wrap{max-width:980px;margin:24px auto;padding:0 16px}
+
+    /* Offline card */
+    .card{
+      background:var(--card); border:1px solid rgba(0,0,0,0.08); border-radius:var(--radius-lg);
+      box-shadow:var(--shadow); padding:18px; overflow:hidden;
+    }
+    .card header{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+    .card h2{margin:0;font-size:20px}
+    .card p{margin:6px 0;color:var(--muted)}
+    .btn-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:var(--radius-md);
+      font-weight:600; border:1px solid rgba(0,0,0,0.08); background:#fff; color:var(--text);
+      box-shadow:var(--shadow); cursor:pointer;
+    }
+    .btn.primary{background:linear-gradient(135deg, #ffd6e8, #c7f0ff); border-color:transparent}
+    .btn.success{background:linear-gradient(135deg, #d6ffe6, #e9fff1); border-color:transparent; color:var(--success)}
+    .btn:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px}
+
+    /* Contact bar */
+    .contact{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:16px;
+    }
+    .contact .item{
+      background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:var(--radius-md);
+      padding:14px; box-shadow:var(--shadow);
+    }
+    .label{font-weight:700;color:#111}
+    .value{color:var(--muted)}
+
+    /* Gallery grid */
+    .section-title{margin:22px 6px 8px;font-weight:800}
+    .grid{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px;
+    }
+    .ba-item{
+      background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:var(--radius-lg); box-shadow:var(--shadow);
+      padding:12px;
+    }
+    .ba-item h3{margin:8px 4px 4px}
+    .ba-wrap{
+      position:relative; width:100%; aspect-ratio:4/3; border-radius:var(--radius-md); overflow:hidden;
+      background:linear-gradient(135deg, #fdf2f8, #eff6ff);
+    }
+    .ba-wrap img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+    .ba.before{filter:saturate(.9) contrast(.95)}
+    .ba.after{
+      --pos: 50;
+      clip-path: inset(0 calc((100 - var(--pos))*1%) 0 0);
+      transition: clip-path .18s ease;
+      box-shadow: inset -20px 0 30px rgba(0,0,0,0.08);
+    }
+    .ba-slider{
+      position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+      width:86%; accent-color:var(--accent); background:transparent;
+    }
+    .ba-divider{
+      position:absolute; top:0; bottom:0; left:calc(var(--pos,50) * 1%); width:2px; background:rgba(255,255,255,0.8);
+      box-shadow:0 0 0 1px rgba(0,0,0,0.06), 0 0 10px rgba(0,0,0,0.12);
+    }
+    .badge{
+      position:absolute; top:8px; left:8px; background:rgba(255,255,255,0.92); color:#111; font-weight:700;
+      padding:6px 10px; border-radius:999px; box-shadow:var(--shadow);
+    }
+
+    /* Footer */
+    footer{margin:24px 0 32px; color:var(--muted); text-align:center}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <!-- Top bar -->
+  <div class="topbar" role="banner">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="Logo ya Menuiserie Moderne" />
+      <div>
+        <div class="brand-title">Menuiserie Moderne</div>
+        <div class="small">Imishinga y’imbaho — Doors, tables, placards</div>
+      </div>
+    </div>
+    <div class="status-pill" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      Offline
+    </div>
+  </div>
+
+  <main class="wrap" role="main">
+    <!-- Offline status card -->
+    <section class="card" aria-labelledby="offline-title">
+      <header>
+        <h2 id="offline-title">Turi offline — serivisi ziracyaboneka</h2>
+      </header>
+      <p>
+        **Impamvu:** internet ntiyabonetse. Ariko urashobora kureba imishinga yacu, contact, no kugerageza kongera gufungura urupapuro.
+      </p>
+      <div class="btn-row">
+        <button class="btn primary" id="retryBtn" type="button" aria-label="Ongerageza gufungura">
+          🔄 Ongera ugerageze
+        </button>
+        <button class="btn success" id="installHint" type="button" aria-label="Reba ibisobanuro byo kwishyiriraho PWA">
+          📲 Shyira ku gikoresho (PWA)
+        </button>
+      </div>
+
+      <!-- Contact essentials -->
+      <div class="contact" aria-label="Amakuru y’ingenzi yo kuvugana">
+        <div class="item">
+          <div class="label">Telefone</div>
+          <div class="value">+257 79 000 000</div>
+        </div>
+        <div class="item">
+          <div class="label">Email</div>
+          <div class="value">admin@menuiserie-moderne.bi</div>
+        </div>
+        <div class="item">
+          <div class="label">Aho dukorera</div>
+          <div class="value">Ntahangwa, Bujumbura Mairie — Burundi</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cached mini gallery with sliders -->
+    <h3 class="section-title">Imishinga yacu (Before → After)</h3>
+    <section class="grid" aria-label="Project gallery">
+      <!-- Doors -->
+      <article class="ba-item">
+        <div class="ba-wrap" data-label="Inzugi">
+          <img src="assets/gallery/door-before.jpg" class="ba before" alt="Inzugi mbere" />
+          <img src="assets/gallery/door-after.jpg" class="ba after" alt="Inzugi nyuma" />
+          <div class="ba-divider" aria-hidden="true"></div>
+          <div class="badge">Inzugi</div>
+          <input type="range" class="ba-slider" min="0" max="100" value="50" aria-label="Hanyura hagati ya mbere na nyuma" />
+        </div>
+        <h3>Inzugi</h3>
+      </article>
+
+      <!-- Tables -->
+      <article class="ba-item">
+        <div class="ba-wrap" data-label="Imeza">
+          <img src="assets/gallery/table-before.jpg" class="ba before" alt="Imeza mbere" />
+          <img src="assets/gallery/table-after.jpg" class="ba after" alt="Imeza nyuma" />
+          <div class="ba-divider" aria-hidden="true"></div>
+          <div class="badge">Imeza</div>
+          <input type="range" class="ba-slider" min="0" max="100" value="50" aria-label="Hanyura hagati ya mbere na nyuma" />
+        </div>
+        <h3>Imeza</h3>
+      </article>
+
+      <!-- cabinet -->
+      <article class="ba-item">
+        <div class="ba-wrap" data-label="cabinet">
+          <img src="assets/gallery/cabinet-before.jpg" class="ba before" alt="Akabati mbere" />
+          <img src="assets/gallery/cabinet-after.jpg" class="ba after" alt="Akabati nyuma" />
+          <div class="ba-divider" aria-hidden="true"></div>
+          <div class="badge">Cabinet</div>
+          <input type="range" class="ba-slider" min="0" max="100" value="50" aria-label="Hanyura hagati ya mbere na nyuma" />
+        </div>
+        <h3>Cabinet</h3>
+      </article>
+    </section>
+
+    <!-- Helpful note -->
+    <section class="card" style="margin-top:18px" aria-labelledby="help-title">
+      <header>
+        <h2 id="help-title">Ibyo kumenya</h2>
+      </header>
+      <p>
+        **Inama:** Nugira internet, urupapuro rusanzwe ruzahita rifunguka. Niba ukoresha Android , ushobora
+        **gushyira ku gikoresho** (Add to Home) kugira ngo rukore no offline neza.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="small">© Menuiserie Moderne • Crafted with care • Offline mode</div>
+  </footer>
+
+  <!-- Inline JS (no external scripts) -->
+  <script>
+    (function(){
+      // Before/After sliders
+      const wraps = document.querySelectorAll('.ba-wrap');
+      wraps.forEach(wrap => {
+        const slider = wrap.querySelector('.ba-slider');
+        const after = wrap.querySelector('.ba.after');
+        const divider = wrap.querySelector('.ba-divider');
+        const setPos = (val) => {
+          after.style.setProperty('--pos', val);
+          divider.style.left = val + '%';
+          wrap.style.setProperty('--pos', val);
+        };
+        setPos(slider.value);
+        slider.addEventListener('input', (e) => setPos(e.target.value));
+      });
+
+      // Retry button tries to navigate back to the online homepage (if cached)
+      const retry = document.getElementById('retryBtn');
+      retry?.addEventListener('click', () => {
+        // Prefer root or last online page; adjust to your homepage
+        location.href = '/';
+      });
+
+      // Install hint (informational only here; real install happens via beforeinstallprompt in main app)
+      const hint = document.getElementById('installHint');
+      hint?.addEventListener('click', () => {
+        alert('Kugira ngo ushyire ku gikoresho: fungura page nyamukuru online, wemeze “Add to Home Screen” cyangwa “Install app”.');
+      });
+    })();
+  </script>
+</body>
+</html>
