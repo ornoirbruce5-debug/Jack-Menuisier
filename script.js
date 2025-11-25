@@ -1,17 +1,21 @@
 // Dark mode toggle
 const darkToggle = document.getElementById('darkToggle');
-darkToggle.addEventListener('click', () => {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-});
+if (darkToggle) {
+  darkToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  });
+}
 
 // CTA ripple coords
 const ctaBtn = document.getElementById('ctaBtn');
-ctaBtn.addEventListener('mousemove', (e) => {
-  const rect = ctaBtn.getBoundingClientRect();
-  ctaBtn.style.setProperty('--x', `${e.clientX - rect.left}px`);
-  ctaBtn.style.setProperty('--y', `${e.clientY - rect.top}px`);
-});
+if (ctaBtn) {
+  ctaBtn.addEventListener('mousemove', (e) => {
+    const rect = ctaBtn.getBoundingClientRect();
+    ctaBtn.style.setProperty('--x', `${e.clientX - rect.left}px`);
+    ctaBtn.style.setProperty('--y', `${e.clientY - rect.top}px`);
+  });
+}
 
 // Bottom nav scroll
 document.querySelectorAll('.nav-btn').forEach(b=>{
@@ -24,6 +28,7 @@ document.querySelectorAll('.nav-btn').forEach(b=>{
 // Aurora animated gradient background
 (function aurora() {
   const canvas = document.getElementById('auroraCanvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   function resize(){ canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; }
   resize(); window.addEventListener('resize', resize);
@@ -42,9 +47,10 @@ document.querySelectorAll('.nav-btn').forEach(b=>{
 
 // Seasonal themes
 (function seasonTheme(){
-  const m = new Date().getMonth()+1; // 1-12
+  const m = new Date().getMonth()+1;
   const root = document.documentElement;
   const seasonText = document.getElementById('seasonText');
+  if (!seasonText) return;
   if ([9,10,11].includes(m)) { root.classList.add('autumn'); seasonText.textContent = 'Autumn warm wood tones 🍂'; }
   else if ([3,4,5].includes(m)) { root.classList.add('spring'); seasonText.textContent = 'Spring pastel flowers 🌸'; }
   else { seasonText.textContent = 'Classic dreamy aurora ✨'; }
@@ -53,6 +59,7 @@ document.querySelectorAll('.nav-btn').forEach(b=>{
 // Carousel swipe + buttons
 (function carousel(){
   const container = document.getElementById('carousel');
+  if (!container) return;
   const prev = document.getElementById('prevBtn');
   const next = document.getElementById('nextBtn');
   let isDown=false, startX=0, scrollLeft=0;
@@ -72,11 +79,11 @@ document.querySelectorAll('.nav-btn').forEach(b=>{
     const walk=(x - startX)*1.2;
     container.scrollLeft = scrollLeft - walk;
   }, {passive:true});
-  prev.addEventListener('click', ()=> container.scrollBy({left:-320, behavior:'smooth'}) );
-  next.addEventListener('click', ()=> container.scrollBy({left:320, behavior:'smooth'}) );
+  if (prev) prev.addEventListener('click', ()=> container.scrollBy({left:-320, behavior:'smooth'}) );
+  if (next) next.addEventListener('click', ()=> container.scrollBy({left:320, behavior:'smooth'}) );
 })();
 
-// Testimonials avatar gentle parallax on scroll
+// Testimonials avatar gentle parallax
 document.addEventListener('scroll', ()=>{
   document.querySelectorAll('.avatar.animated').forEach(el=>{
     const r = el.getBoundingClientRect();
@@ -85,9 +92,9 @@ document.addEventListener('scroll', ()=>{
   });
 });
 
-// Joke spinner + localStorage + confetti
+// Joke spinner + confetti
 const jokes = [
-  "Umubaji ati: ‘Ntawuca igiti n’ishoka yabunzwe!’ 🤭",
+  "Umwubaji ati: ‘Ntawuca igiti n’ishoka yabunzwe!’ 🤭",
   "Imbaho ziravuga: ‘Turakunda glowing finish!’ 😄",
   "Placard yaremye akajambo: ‘Ndafise imyanya menshi!’ 😂",
   "Intebe iti: ‘Wicare neza, umutekano mbere ya vyose!’ 😌",
@@ -99,6 +106,7 @@ function getSeen(){ return JSON.parse(localStorage.getItem('seenJokes')||'[]'); 
 function setSeen(arr){ localStorage.setItem('seenJokes', JSON.stringify(arr)); }
 function confetti(){
   const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   canvas.width=window.innerWidth; canvas.height=window.innerHeight;
   const parts = Array.from({length: 120}).map(()=>({
@@ -129,20 +137,21 @@ function spinJoke(){
   const seen = getSeen();
   const pool = jokes.filter(j=> !seen.includes(j));
   const pick = pool.length ? pool[Math.floor(Math.random()*pool.length)] : jokes[Math.floor(Math.random()*jokes.length)];
-  jokeText.textContent = pick;
+  if (jokeText) jokeText.textContent = pick;
   if(!seen.includes(pick)) { seen.push(pick); setSeen(seen); }
   confetti();
 }
-spinJokeBtn.addEventListener('click', spinJoke);
-clearJokesBtn.addEventListener('click', ()=> localStorage.removeItem('seenJokes') );
+if (spinJokeBtn) spinJokeBtn.addEventListener('click', spinJoke);
+if (clearJokesBtn) clearJokesBtn.addEventListener('click', ()=> localStorage.removeItem('seenJokes') );
 
-// Google Maps: WhatsApp link + QR area
+// WhatsApp link
 const waLink = document.getElementById('waLink');
-// Simbuza numero yawe & autoresponder message
-const waNumber = '25771633859'; // 257... (Bujumbura)
+const waNumber = '25771633859'; // placeholder
 const waMsg = encodeURIComponent('Muraho! Nshaka devis y\'ibikoresho by\'imbaho. Izina: , Igihe: ');
-waLink.href = `https://wa.me/${waNumber}?text=${waMsg}`;
-waLink.textContent = 'WhatsApp Devis';
+if (waLink) {
+  waLink.href = `https://wa.me/${waNumber}?text=${waMsg}`;
+  waLink.textContent = 'WhatsApp Devis';
+}
 
 // Price estimator
 const len = document.getElementById('len');
@@ -152,15 +161,16 @@ const lenVal = document.getElementById('lenVal');
 const widVal = document.getElementById('widVal');
 const priceOut = document.getElementById('priceOut');
 function calcPrice(){
-  const L = Number(len.value), W = Number(wid.value);
-  lenVal.textContent = L; widVal.textContent = W;
-  const area = (L * W) / 10000; // m^2
-  const base = 50000; // BIF base per m^2 (placeholder)
-  const mult = woodType.value==='oak' ? 1.6 : woodType.value==='teak' ? 1.8 : 1.2;
+  const L = Number(len?.value||0), W = Number(wid?.value||0);
+  if (lenVal) lenVal.textContent = L;
+  if (widVal) widVal.textContent = W;
+  const area = (L * W) / 10000;
+  const base = 50000;
+  const mult = woodType?.value==='oak' ? 1.6 : woodType?.value==='teak' ? 1.8 : 1.2;
   const price = Math.round(area * base * mult);
-  priceOut.textContent = `BIF ${price.toLocaleString('en-US')}`;
+  if (priceOut) priceOut.textContent = `BIF ${price.toLocaleString('en-US')}`;
 }
-[len,wid,woodType].forEach(el=> el.addEventListener('input', calcPrice));
+[len,wid,woodType].forEach(el=> el?.addEventListener('input', calcPrice));
 calcPrice();
 
 // Before/After slider logic
@@ -176,32 +186,36 @@ document.querySelectorAll('.ba-wrap').forEach(w=>{
 // Appointment scheduler -> WhatsApp or Email
 const apptForm = document.getElementById('apptForm');
 const emailBtn = document.getElementById('emailBtn');
-apptForm.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const n = document.getElementById('name').value.trim();
-  const d = document.getElementById('date').value;
-  const t = document.getElementById('time').value;
-  const need = document.getElementById('need').value.trim();
-  const msg = encodeURIComponent(`Rendez-vous: ${n}, ${d} ${t}, Icyo nkeneye: ${need}`);
-  window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
-});
-emailBtn.addEventListener('click', ()=>{
-  const n = document.getElementById('name').value.trim();
-  const d = document.getElementById('date').value;
-  const t = document.getElementById('time').value;
-  const need = document.getElementById('need').value.trim();
-  const subject = encodeURIComponent(`Rendez-vous: ${n}`);
-  const body = encodeURIComponent(`Itariki: ${d} ${t}\nIcyo nkeneye: ${need}\nMerci!`);
-  window.location.href = `mailto:ornoirbruce5@gmail.com?subject=${subject}&body=${body}`;
-});
+if (apptForm) {
+  apptForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const n = document.getElementById('name').value.trim();
+    const d = document.getElementById('date').value;
+    const t = document.getElementById('time').value;
+    const need = document.getElementById('need').value.trim();
+    const msg = encodeURIComponent(`Rendez-vous: ${n}, ${d} ${t}, Icyo nkeneye: ${need}`);
+    window.open(`https://wa.me/${waNumber}?text=${msg}`, '_blank');
+  });
+}
+if (emailBtn) {
+  emailBtn.addEventListener('click', ()=>{
+    const n = document.getElementById('name').value.trim();
+    const d = document.getElementById('date').value;
+    const t = document.getElementById('time').value;
+    const need = document.getElementById('need').value.trim();
+    const subject = encodeURIComponent(`Rendez-vous: ${n}`);
+    const body = encodeURIComponent(`Itariki: ${d} ${t}\nIcyo nkeneye: ${need}\nMerci!`);
+    window.location.href = `mailto:ornoirbruce5@gmail.com?subject=${subject}&body=${body}`;
+  });
+}
 
 // Analytics charts (vanilla canvas)
 function drawLineChart(canvasId, data, colorA='#c7f0ff', colorB='#ffcfe4'){
   const c = document.getElementById(canvasId);
+  if (!c) return;
   const ctx = c.getContext('2d');
-  const padding = 18; const W = c.width; const H = c.height;
+  const padding = 18; const W = c.width = c.clientWidth; const H = c.height = c.clientHeight;
   ctx.clearRect(0,0,W,H);
-  // bg glow
   const g = ctx.createLinearGradient(0,0,0,H);
   g.addColorStop(0, 'rgba(199,240,255,.18)');
   g.addColorStop(1, 'rgba(255,207,228,.08)');
@@ -214,7 +228,6 @@ function drawLineChart(canvasId, data, colorA='#c7f0ff', colorB='#ffcfe4'){
     const x = padding + i*stepX;
     const y = H - padding - (v/max)*(H - padding*2);
     if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    // point glow
     ctx.fillStyle = colorB; ctx.shadowColor = colorB; ctx.shadowBlur = 8;
     ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
   });
@@ -223,7 +236,7 @@ function drawLineChart(canvasId, data, colorA='#c7f0ff', colorB='#ffcfe4'){
 drawLineChart('visitsChart', [3,6,9,5,8,12,10]);
 drawLineChart('quotesChart', [1,2,3,2,4,5,6], '#ffcfe4', '#c7f0ff');
 
-// Dynamic wood selector -> CSS variables shift
+// Dynamic wood selector
 const woodMap = {
   pine: { overlay:'#f9d4b9', stroke:'#c89f83' },
   oak: { overlay:'#cfa27e', stroke:'#a17457' },
@@ -237,9 +250,10 @@ document.querySelectorAll('[data-wood]').forEach(b=>{
   });
 });
 
-// Onboarding tour (one-time using localStorage)
+// Onboarding tour
 const onboarding = document.getElementById('onboarding');
 (function tour(){
+  if(!onboarding) return;
   if(localStorage.getItem('mm_onboarded')==='1') return;
   onboarding.classList.remove('hidden');
   const steps = Array.from(onboarding.querySelectorAll('.onboarding-step'));
@@ -258,21 +272,25 @@ let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', (e)=>{
   e.preventDefault(); deferredPrompt = e;
 });
-document.getElementById('installBtn').addEventListener('click', async ()=>{
-  if(!deferredPrompt) return alert('Install option izaza vuba...');
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-});
+const installBtn = document.getElementById('installBtn');
+if (installBtn) {
+  installBtn.addEventListener('click', async ()=>{
+    if(!deferredPrompt) return alert('Install option izaza vuba...');
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  });
+}
 
-// AR placement - camera + draggable furniture
+// AR placement
 (async function initAR(){
   const video = document.getElementById('camera');
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-    video.srcObject = stream;
+    if (video) video.srcObject = stream;
   } catch(e){ console.warn('Camera access refused', e); }
   const stage = document.getElementById('arStage');
+  if (!stage) return;
   const furnImgs = {
     table: 'assets/ar/table.png',
     door:  'assets/ar/door.png',
@@ -281,26 +299,38 @@ document.getElementById('installBtn').addEventListener('click', async ()=>{
   function addFurn(type){
     const f = document.createElement('div');
     f.className = 'furn';
+    f.style.position = 'absolute';
     f.style.background = `url(${furnImgs[type]}) center/cover, linear-gradient(135deg, var(--wood1), var(--wood2))`;
     stage.appendChild(f);
-    // drag
     let ix=0, iy=0, dragging=false;
     f.addEventListener('mousedown',(e)=>{ dragging=true; ix=e.offsetX; iy=e.offsetY; });
     stage.addEventListener('mouseup',()=> dragging=false);
     stage.addEventListener('mousemove',(e)=>{ if(!dragging) return; const r=stage.getBoundingClientRect(); f.style.left=(e.clientX - r.left - ix)+'px'; f.style.top=(e.clientY - r.top - iy)+'px'; });
-    // resize via wheel
     f.addEventListener('wheel',(e)=>{ e.preventDefault(); const scale = Math.max(.5, Math.min(3, (parseFloat(f.dataset.scale)||1) + (e.deltaY<0? .1 : -.1))); f.dataset.scale=scale; f.style.transform=`scale(${scale})`; });
-    // touch
     f.addEventListener('touchstart',(e)=>{ dragging=true; const t=e.touches[0]; const rect=f.getBoundingClientRect(); ix=t.clientX-rect.left; iy=t.clientY-rect.top; },{passive:true});
     stage.addEventListener('touchmove',(e)=>{ if(!dragging) return; const t=e.touches[0]; const r=stage.getBoundingClientRect(); f.style.left=(t.clientX - r.left - ix)+'px'; f.style.top=(t.clientY - r.top - iy)+'px'; },{passive:true});
     stage.addEventListener('touchend',()=> dragging=false);
   }
-  document.querySelectorAll('[data-furn]').forEach(b=> b.addEventListener('click', ()=> addFurn(b.dataset.furn) ));
-  document.getElementById('clearAR').addEventListener('click', ()=> stage.innerHTML='' );
+  document.querySelectorAll('[data-furn]').forEach(b=> 
+    b.addEventListener('click', ()=> addFurn(b.dataset.furn))
+  );
+  const clearBtn = document.getElementById('clearAR');
+  if (clearBtn) clearBtn.addEventListener('click', ()=> stage.innerHTML='' );
 })();
 
-// Bottom nav safe area for mobile
+// Bottom nav safe area
 document.addEventListener('DOMContentLoaded', ()=>{
   const nav = document.querySelector('.bottom-nav');
-  document.body.style.paddingBottom = (nav.offsetHeight + 16) + 'px';
+  if (nav) {
+    document.body.style.paddingBottom = (nav.offsetHeight + 16) + 'px';
+  }
 });
+
+// Service Worker registration
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(reg => console.log("✅ Service Worker registered:", reg.scope))
+      .catch(err => console.error("❌ Service Worker registration failed:", err));
+  });
+}
