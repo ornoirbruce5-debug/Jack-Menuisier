@@ -233,8 +233,7 @@ function drawLineChart(canvasId, data, colorA='#c7f0ff', colorB='#ffcfe4'){
   });
   ctx.stroke();
 }
-drawLineChart('visitsChart', [3,6,9,5,8,12,10]);
-drawLineChart('quotesChart', [1,2,3,2,4,5,6], '#ffcfe4', '#c7f0ff');
+
 
 // Dynamic wood selector
 const woodMap = {
